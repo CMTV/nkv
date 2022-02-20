@@ -17,7 +17,7 @@ var __extends = (this && this.__extends) || (function () {
 exports.__esModule = true;
 exports.parse = exports.parseFile = void 0;
 var fs_1 = require("fs");
-var types_1 = require("src/types");
+var types_1 = require("./types");
 var ParseError = /** @class */ (function (_super) {
     __extends(ParseError, _super);
     function ParseError(errorLabel, line) {
@@ -120,4 +120,3 @@ function parse(nkvString) {
     return STATE.data;
 }
 exports.parse = parse;
-//# sourceMappingURL=parse.js.map

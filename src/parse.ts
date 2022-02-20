@@ -1,5 +1,5 @@
 import { readFileSync } from "fs";
-import { NKVDataItem, NKVDataRoot, State } from "src/types";
+import { NKVDataItem, NKVDataRoot, State } from "./types";
 
 class ParseError extends Error
 {

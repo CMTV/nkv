@@ -1,18 +1,20 @@
 {
     "name": "nkv",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "author": "CMTV",
+    "description": "A simple parser for Nested Key Value (nkv) structures.",
     "license": "MIT",
-
+    "keywords": [
+        "key",
+        "value",
+        "key-value",
+        "tree",
+        "nesting"
+    ],
     "main": "dist/index.js",
-
-    "publishConfig": { "registry": "https://npm.pkg.github.com/" },
     "repository": "git://github.com/CMTV/nkv.git",
-
-    "devDependencies":
-    {
+    "devDependencies": {
         "ts-node": "^10.5.0",
-        "tsconfig-paths": "^3.12.0",
         "typescript": "^4.5.5"
     }
 }
