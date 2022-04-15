@@ -30,7 +30,7 @@ class Line
 // Functions
 //
 
-export default function parse(str: string)
+export function parse(str: string)
 {
     let nkv = new NKVRoot;
 
