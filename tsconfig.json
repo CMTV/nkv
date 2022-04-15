@@ -1,12 +1,11 @@
 {
     "compilerOptions":
     {
-        "esModuleInterop": true,
-        "baseUrl": "./",
         "forceConsistentCasingInFileNames": true,
-        "declaration": true,
-        "outDir": "dist"
+        "esModuleInterop": true,
+        "outDir": "dist",
+        "declaration": true
     },
 
-    "include": ["src/**/*"],
+    "include": ["index.ts"]
 }

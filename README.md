@@ -3,41 +3,58 @@
 With this package you can parse nested key value structures like this one:
 
 ```yaml
+#
+# First part
+#
+
 key1: Value 1
-    key2: Value 2
+    key2: Value 2       # This one is very important!
     key3: Value 3
         key4: Value 4
-key5: Value 5
+
+#
+# Second one
+#
+
+key5:
     key6: Value 6
 ```
 
 into JavaScript objects:
 
 ```javascript
-<root>
 {
-    level: -1,
-    children:
-    [
+    children: [
         {
-            level: 0,
             key: "key1",
             value: "Value 1",
-            parent: <...>,
-            children:
-            [
+            children: [
                 {
-                    level: 1,
                     key: "key2",
                     value: "Value 2",
-                    parent: <...>,
+                    children: []
                 },
                 {
-                    level: 1;,
                     key: "key3",
                     value: "Value 3",
-                    parent: <...>,
-                    children: <...>
+                    children: [
+                        {
+                            key: "key4",
+                            value: "Value 4",
+                            children: []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            key: "key5",
+            value: null,
+            children: [
+                {
+                    key: "key6",
+                    value: "Value 6",
+                    children: []
                 }
             ]
         }
@@ -47,7 +64,20 @@ into JavaScript objects:
 
 ## Usage
 
-```javascript
+Just use `parse()` function.
+It will return `NKVRoot` object with `children` property which contains an array of root-level `NKVItem` elements.
+
+```
 const nkv = require('nkv');
-let data = nkv.parseFile('myFile.nkv');
+
+let toParse = `
+
+key1:
+    key2: Value 2
+
+`;
+
+let result = nkv.parse(toParse);
+
+console.log(result);
 ```
