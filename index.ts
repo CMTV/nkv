@@ -1,15 +1,17 @@
+import fs from "fs";
+
 //
 // Types
 //
 
-export class NKVRoot
+class NKVRoot
 {
     children: NKVItem[] = [];
 
     hasChildren() { return this.children.length !== 0; }
 }
 
-export class NKVItem extends NKVRoot
+class NKVItem extends NKVRoot
 {
     key:        string;
     value?:     string;
@@ -30,7 +32,12 @@ class Line
 // Functions
 //
 
-export function parse(str: string)
+function parseFile(path: string)
+{
+    return parse(fs.readFileSync(path, 'utf-8'));
+}
+
+function parse(str: string)
 {
     let nkv = new NKVRoot;
 
@@ -72,7 +79,7 @@ function getLinesFrom(str: string): Line[]
 
         let line = new Line;
             line.index =    i;
-            line.indent =   strLine.search(/\S|$/) - 1;
+            line.indent =   Math.max(0, strLine.search(/\S|$/) - 1);
             line.key =      parts[0];
             line.value =    parts[1].length === 0 ? null : parts[1];
         
@@ -115,4 +122,15 @@ function getChildrenOf(line: Line, lines: Line[]): Line[]
     }
 
     return children;
+}
+
+//
+//
+//
+
+export default {
+    NKVRoot,
+    NKVItem,
+    parse,
+    parseFile
 }

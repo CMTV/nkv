@@ -64,10 +64,10 @@ into JavaScript objects:
 
 ## Usage
 
-Just use `parse()` function.
+Just use `parse()` or `parseFile()` functions.
 It will return `NKVRoot` object with `children` property which contains an array of root-level `NKVItem` elements.
 
-```
+```javascript
 const nkv = require('nkv');
 
 let toParse = `
