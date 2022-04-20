@@ -4,20 +4,20 @@ import fs from "fs";
 // Types
 //
 
-class NKVRoot
+export class NKVRoot
 {
     children: NKVItem[] = [];
 
     hasChildren() { return this.children.length !== 0; }
 }
 
-class NKVItem extends NKVRoot
+export class NKVItem extends NKVRoot
 {
     key:        string;
     value?:     string;
     children:   NKVItem[] = [];
 
-    hasValue() { return this.value !== null }
+    hasValue() { return this.value !== null; }
 }
 
 class Line
@@ -32,12 +32,12 @@ class Line
 // Functions
 //
 
-function parseFile(path: string)
+export function parseFile(path: string)
 {
     return parse(fs.readFileSync(path, 'utf-8'));
 }
 
-function parse(str: string)
+export function parse(str: string)
 {
     let nkv = new NKVRoot;
 
@@ -122,15 +122,4 @@ function getChildrenOf(line: Line, lines: Line[]): Line[]
     }
 
     return children;
-}
-
-//
-//
-//
-
-export default {
-    NKVRoot,
-    NKVItem,
-    parse,
-    parseFile
 }
