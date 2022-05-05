@@ -32,7 +32,7 @@ into JavaScript objects:
                 {
                     key: "key2",
                     value: "Value 2",
-                    children: []
+                    children: null
                 },
                 {
                     key: "key3",
