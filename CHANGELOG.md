@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.3.0
+
+* Removed `NPMRoot` class. Parse functions now return an array of root-level `NPMItem` objects.
+* Tree is now generated via `2tree` npm package.
+
 ## 2.2.0
 
 * Fixed typo in `README.md`.

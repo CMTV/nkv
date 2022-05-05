@@ -1,6 +1,6 @@
 {
     "name": "nkv",
-    "version": "2.2.0",
+    "version": "2.3.0",
     "description": "A simple parser for Nested Key Value (nkv) structures.",
     "author": {
         "name": "CMTV",
@@ -23,5 +23,8 @@
         "rimraf": "^3.0.2",
         "ts-node": "^10.7.0",
         "typescript": "^4.6.3"
+    },
+    "dependencies": {
+        "2tree": "^1.0.1"
     }
 }

@@ -1,125 +1,74 @@
+import TreeMaker from "2tree";
 import fs from "fs";
 
 //
-// Types
+//
 //
 
-export class NKVRoot
+export function parse(str: string)
 {
-    children: NKVItem[] = [];
-
-    hasChildren() { return this.children.length !== 0; }
+    let maker = new NKVTreeMaker;
+    return maker.make(str.split(/$/gm));
 }
-
-export class NKVItem extends NKVRoot
-{
-    key:        string;
-    value?:     string;
-    children:   NKVItem[] = [];
-
-    hasValue() { return this.value !== null; }
-}
-
-class Line
-{
-    index:  number;
-    indent: number;
-    key:    string;
-    value?: string;
-}
-
-//
-// Functions
-//
 
 export function parseFile(path: string)
 {
     return parse(fs.readFileSync(path, 'utf-8'));
 }
 
-export function parse(str: string)
+export class NKVItem
 {
-    let nkv = new NKVRoot;
+    key:        string;
+    value?:     string;
+    children:   NKVItem[] = [];
 
-    let lines = getLinesFrom(str);
-
-    let rootLine = new Line;
-        rootLine.indent = rootLine.index = -1;
-
-    nkv.children = getChildrenOf(rootLine, lines).map(line => parseLine(line, lines));
-
-    return nkv;
+    hasChildren()   { return this.children.length !== 0; }
+    hasValue()      { return this.value !== null; }
 }
 
-function getLinesFrom(str: string): Line[]
-{
-    let lines: Line[] = [];
+//
+//
+//
 
-    str.split(/$/gm).forEach((strLine, i) =>
+class NKVTreeMaker extends TreeMaker<string, NKVItem>
+{
+    rawToProduct(line: string): NKVItem
     {
         // Comments
-        strLine = strLine.replace(/(?!\\)#(.+)$/gm, '');
+        line = line.replace(/(?!\\)#(.+)$/gm, '');
 
-        // Splitting on colon character
-        let parts = strLine.split(/(?<!^)(?<!\\):/);
+        // Colon split
+        let parts = line.split(/(?<!^)(?<!\\):/);
 
         // Missing colon
         if (parts.length !== 2)
-            return;
+            return null;
 
-        parts = parts.map(part => 
+        parts = parts.map(part =>
         {
             let out = part;
-    
+
             out = out.replace(/\\+/gm, match => '\\'.repeat(match.length - 1));
             out = out.trim();
-    
+
             return out;
         });
 
-        let line = new Line;
-            line.index =    i;
-            line.indent =   Math.max(0, strLine.search(/\S|$/) - 1);
-            line.key =      parts[0];
-            line.value =    parts[1].length === 0 ? null : parts[1];
+        let nkvItem = new NKVItem;
+            nkvItem.key = parts[0];
+            nkvItem.value = parts[1].length === 0 ? null : parts[1];
         
-        lines.push(line);
-    });
-
-    return lines;
-}
-
-function parseLine(line: Line, lines: Line[]): NKVItem
-{
-    let item = new NKVItem;
-        item.key = line.key;
-        item.value = line.value;
-        item.children = getChildrenOf(line, lines).map(line => parseLine(line, lines));
-
-    return item;
-}
-
-function getChildrenOf(line: Line, lines: Line[]): Line[]
-{
-    let targetIndent = null;
-    let children: Line[] = [];
-
-    for (let i = 0; i < lines.length; i++)
-    {
-        let childLine = lines[i];
-
-        if (childLine.index <= line.index)
-            continue;
-
-        if (childLine.indent <= line.indent)
-            break;
-
-        if (targetIndent === null)
-            targetIndent = childLine.indent;
-
-        if (childLine.indent === targetIndent)
-            children.push(childLine);
+        return nkvItem;
     }
 
-    return children;
+    isContainer()
+    {
+        return true;
+    }
+
+    isChild(line: string, container: string): boolean
+    {
+        let getIndent = (line: string) => Math.max(0, line.search(/\S|$/) - 1);
+        return getIndent(line) > getIndent(container);
+    }
 }
