@@ -1,6 +1,6 @@
 {
     "name": "nkv",
-    "version": "2.3.0",
+    "version": "2.3.1",
     "description": "A simple parser for Nested Key Value (nkv) structures.",
     "author": {
         "name": "CMTV",
