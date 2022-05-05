@@ -24,7 +24,7 @@ into JavaScript objects:
 
 ```javascript
 {
-    children: [
+    [
         {
             key: "key1",
             value: "Value 1",
@@ -41,7 +41,7 @@ into JavaScript objects:
                         {
                             key: "key4",
                             value: "Value 4",
-                            children: []
+                            children: null
                         }
                     ]
                 }
@@ -54,7 +54,7 @@ into JavaScript objects:
                 {
                     key: "key6",
                     value: "Value 6",
-                    children: []
+                    children: null
                 }
             ]
         }
@@ -65,7 +65,7 @@ into JavaScript objects:
 ## Usage
 
 Just use `parse()` or `parseFile()` functions.
-They return `NKVRoot` object with `children` property which contains an array of root-level `NKVItem` elements.
+They return an array of root-level `NKVItem` elements.
 
 ```javascript
 const nkv = require('nkv');

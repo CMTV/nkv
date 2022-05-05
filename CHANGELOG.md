@@ -2,7 +2,8 @@
 
 ## 2.3.0
 
-* Removed `NPMRoot` class. Parse functions now return an array of root-level `NPMItem` objects.
+* Removed `NPMRoot` class. Parse functions return an array of root-level `NPMItem` objects.
+* `children` property equals `null` when there an item has no children.
 * Tree is now generated via `2tree` npm package.
 
 ## 2.2.0

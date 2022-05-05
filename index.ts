@@ -20,9 +20,9 @@ export class NKVItem
 {
     key:        string;
     value?:     string;
-    children:   NKVItem[] = [];
+    children:   NKVItem[];
 
-    hasChildren()   { return this.children.length !== 0; }
+    hasChildren()   { return this.children !== null; }
     hasValue()      { return this.value !== null; }
 }
 
