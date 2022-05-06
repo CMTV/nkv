@@ -1,11 +1,12 @@
 {
     "name": "nkv",
-    "version": "2.3.1",
+    "version": "2.3.2",
     "description": "A simple parser for Nested Key Value (nkv) structures.",
     "author": {
         "name": "CMTV",
         "url": "https://github.com/CMTV"
     },
+    "repository": "git://github.com/CMTV/nkv.git",
     "license": "MIT",
     "keywords": [
         "key",
